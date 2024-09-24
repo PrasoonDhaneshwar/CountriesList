@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "android test"
 include(":app")
 include(":countries")
+include(":exchangerate")

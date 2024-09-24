@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -5,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.androidtest"
+    namespace = "com.prasoon.exchangerate"
     compileSdk = 34
 
     defaultConfig {
@@ -13,6 +15,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("EXCHANGE_RATE_API_KEY")}\"")
     }
 
     buildTypes {
@@ -30,6 +35,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

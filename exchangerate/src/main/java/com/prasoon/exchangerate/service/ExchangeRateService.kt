@@ -1,6 +1,6 @@
-package com.example.androidtest.countries.service
+package com.prasoon.exchangerate.service
 
-import com.example.androidtest.countries.CountriesApi
+import com.prasoon.exchangerate.ExchangeRateApi
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 
-class CountriesService {
+class ExchangeRateService {
     @OptIn(ExperimentalSerializationApi::class)
     val json by lazy {
         Json {
@@ -40,7 +40,7 @@ class CountriesService {
     }
     private val contentType = "application/json; charset=utf-8".toMediaType()
 
-    private val countriesRetrofit by lazy {
+    private val exchangeRateRetrofit by lazy {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
@@ -48,11 +48,11 @@ class CountriesService {
             .build()
     }
 
-    val countriesApi: CountriesApi
-        get() = countriesRetrofit.create(CountriesApi::class.java)
+    val exchangeRateApi: ExchangeRateApi
+        get() = exchangeRateRetrofit.create(ExchangeRateApi::class.java)
 
     private companion object {
-        private const val BASE_URL = "https://restcountries.com/v3.1/"
+        private const val BASE_URL = "https://api.exchangerate-api.com/v4/latest/"
         // private const val BASE_URL = "https://restcountries.com/v3.1/all"
     }
 }

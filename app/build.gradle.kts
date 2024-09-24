@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotloinx.serialization)
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -39,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -52,6 +55,7 @@ android {
 
 dependencies {
     implementation(project(":countries"))
+    implementation(project(":exchangerate"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -61,12 +65,35 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
 
     implementation(libs.kotlinx.serialization)
+
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    // Coroutines
+    implementation (libs.kotlinx.coroutines.core.v152)
+    implementation (libs.kotlinx.coroutines.android.v152)
+
+    // Dependency Injection - Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    // Navigation between screens
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // Image Loading - Coil
+    implementation(libs.coil.compose)
+
+    // retrofit
+    implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.kotlinx.serialization)
+    implementation(libs.okhttp3.logging.interceptor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
