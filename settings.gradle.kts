@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "android test"
+rootProject.name = "Countries List"
 include(":app")
 include(":countries")
 include(":exchangerate")

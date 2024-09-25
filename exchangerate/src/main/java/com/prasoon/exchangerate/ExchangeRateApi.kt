@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface ExchangeRateApi {
     @GET("{currency}")
-    suspend fun fetchExchangeRate(@Path("currency") currency: String): Response<ExchangeRateResponse>
+    suspend fun fetchExchangeRate(@Path("currency") currency: String): ExchangeRateResponse
 
 }
 

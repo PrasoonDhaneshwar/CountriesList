@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">android test</string>
+    <string name="app_name" translatable="false">Countries List</string>
+    <string name="countries_list">Countries List</string>
+    <string name="currency_not_available">Currency not available</string>
+    <string name="country_details">Country Details</string>
+    <string name="usd_exchange_rate_not_available">USD exchange rate not available for this currency.</string>
+    <string name="usd_exchange_rate">Exchange rate to USD:</string>
+    <string name="currency">Currency:</string>
+    <string name="error">Error</string>
 </resources>

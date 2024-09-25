@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotloinx.serialization)
+    alias(libs.plugins.kotlinx.serialization)
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
 }
@@ -41,7 +41,6 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -73,11 +72,7 @@ dependencies {
 
     implementation(libs.kotlinx.serialization)
 
-    // ViewModel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
-    // Coroutines
-    implementation (libs.kotlinx.coroutines.core.v152)
-    implementation (libs.kotlinx.coroutines.android.v152)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Dependency Injection - Hilt
     implementation(libs.hilt.android)

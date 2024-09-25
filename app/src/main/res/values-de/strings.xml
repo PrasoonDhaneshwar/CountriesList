@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="countries_list">Länderliste</string>
+    <string name="currency_not_available">Währung nicht verfügbar</string>
+    <string name="country_details">Details zum Land</string>
+    <string name="usd_exchange_rate_not_available">USD-Wechselkurs für diese Währung nicht verfügbar.</string>
+    <string name="usd_exchange_rate">Wechselkurs zum USD:</string>
+    <string name="currency">Währung:</string>
+    <string name="error">Fehler</string>
+</resources>
