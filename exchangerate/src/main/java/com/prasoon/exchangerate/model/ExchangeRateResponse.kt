@@ -10,12 +10,3 @@ data class ExchangeRateResponse(
     @SerialName("rates")
     var rates: Map<String, Double>
 )
-
-// old
-//@Serializable
-//data class ExchangeRateResponse(
-//    @SerialName("base")
-//    var base: String,
-//    @SerialName("rates")
-//    var rates: Map<String, Double>
-//)

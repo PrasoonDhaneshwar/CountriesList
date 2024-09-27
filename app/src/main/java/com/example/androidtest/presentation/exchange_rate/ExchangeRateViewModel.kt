@@ -1,22 +1,16 @@
 package com.example.androidtest.presentation.exchange_rate
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidtest.common.Constants.COUNTRY_ID
 import com.example.androidtest.common.Resource
 import com.example.androidtest.domain.model.Country
 import com.example.androidtest.domain.use_case.get_exchange_rate.GetExchangeRateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
@@ -65,27 +59,5 @@ class ExchangeRateViewModel @Inject constructor(
                 }
             }
         }.launchIn(scope = viewModelScope)
-    }
-
-    // Fetch exchange rate for a country
-//    fun getExchangeRate(currencyCode: String) {
-//        viewModelScope.launch {
-//            try {
-//                val response = exchangeRateService.exchangeRateApi.fetchExchangeRate(currencyCode)
-//                if (response.isSuccessful) {
-//                    this@ExchangeRateViewModel._exchangeRate.value = response.body()?.rates?.get("USD")
-//                } else {
-//                    _error.value = "No exchange rate data available"
-//                }
-//            } catch (e: Exception) {
-//                _error.value = "Exception occurred: ${e.localizedMessage}"
-//            }
-//        }
-//    }
-
-    // Clean up the scope when the ViewModel is cleared
-    override fun onCleared() {
-        super.onCleared()
-        viewModelScope.cancel()
     }
 }

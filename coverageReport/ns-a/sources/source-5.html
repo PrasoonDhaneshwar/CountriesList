@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > CountryListItemKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.androidtest.presentation.country_list</a>
+</div>
+
+<h1>Coverage Summary for Class: CountryListItemKt (com.example.androidtest.presentation.country_list)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CountryListItemKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/114)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CountryListItemKt$CountryListItem$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CountryListItemKt$CountryListItem$3</td>
+  </tr>
+  <tr>
+    <td class="name">CountryListItemKt$PreviewCountriesItemScreen$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/120)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.androidtest.presentation.country_list
+&nbsp;
+&nbsp;import android.util.Log
+&nbsp;import androidx.compose.foundation.clickable
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.foundation.layout.Column
+&nbsp;import androidx.compose.foundation.layout.Row
+&nbsp;import androidx.compose.foundation.layout.Spacer
+&nbsp;import androidx.compose.foundation.layout.fillMaxSize
+&nbsp;import androidx.compose.foundation.layout.fillMaxWidth
+&nbsp;import androidx.compose.foundation.layout.height
+&nbsp;import androidx.compose.foundation.layout.padding
+&nbsp;import androidx.compose.foundation.layout.size
+&nbsp;import androidx.compose.foundation.layout.width
+&nbsp;import androidx.compose.foundation.shape.CircleShape
+&nbsp;import androidx.compose.material3.CircularProgressIndicator
+&nbsp;import androidx.compose.material3.Text
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.draw.clip
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.layout.ContentScale
+&nbsp;import androidx.compose.ui.res.stringResource
+&nbsp;import androidx.compose.ui.text.font.FontWeight
+&nbsp;import androidx.compose.ui.text.style.TextOverflow
+&nbsp;import androidx.compose.ui.tooling.preview.Preview
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.sp
+&nbsp;import androidx.navigation.NavController
+&nbsp;import androidx.navigation.compose.rememberNavController
+&nbsp;import coil.compose.SubcomposeAsyncImage
+&nbsp;import com.example.androidtest.R
+&nbsp;import com.example.androidtest.countries.model.Currency
+&nbsp;import com.example.androidtest.domain.model.Country
+&nbsp;import com.example.androidtest.presentation.Screen
+&nbsp;import kotlinx.serialization.encodeToString
+&nbsp;import kotlinx.serialization.json.Json
+&nbsp;import java.net.URLEncoder
+&nbsp;import java.nio.charset.StandardCharsets
+&nbsp;
+&nbsp;@Composable
+<b class="nc">&nbsp;fun CountryListItem(country: Country, navController: NavController) {</b>
+<b class="nc">&nbsp;    val TAG = &quot;CountryListItem&quot;</b>
+&nbsp;
+<b class="nc">&nbsp;    val currency = country.currencies?.values?.firstOrNull()</b>
+<b class="nc">&nbsp;    val currencyText = currency?.let { &quot;${it.name} (${it.symbol})&quot; }</b>
+<b class="nc">&nbsp;        ?: stringResource(R.string.currency_not_available)</b>
+&nbsp;
+<b class="nc">&nbsp;    Row(</b>
+<b class="nc">&nbsp;        modifier = Modifier</b>
+<b class="nc">&nbsp;            .fillMaxWidth()</b>
+<b class="nc">&nbsp;            .padding(8.dp)</b>
+<b class="nc">&nbsp;            .clickable { // Serialize the country object and navigate</b>
+<b class="nc">&nbsp;                val countryString = Json.encodeToString(country)</b>
+<b class="nc">&nbsp;                Log.d(TAG, &quot;Country converted to String: $countryString&quot;)</b>
+<b class="nc">&nbsp;                val encodedCountryString =</b>
+<b class="nc">&nbsp;                    URLEncoder.encode(countryString, StandardCharsets.UTF_8.toString())</b>
+<b class="nc">&nbsp;                navController.navigate(Screen.ExchangeRateScreen.route + &quot;/${encodedCountryString}&quot;)</b>
+&nbsp;            },
+<b class="nc">&nbsp;        verticalAlignment = Alignment.CenterVertically</b>
+&nbsp;    ) {
+&nbsp;        // Flag Image
+<b class="nc">&nbsp;        SubcomposeAsyncImage(</b>
+<b class="nc">&nbsp;            model = country.flagUrl,</b>
+<b class="nc">&nbsp;            contentDescription = &quot;Flag of ${country.name}&quot;,</b>
+<b class="nc">&nbsp;            modifier = Modifier</b>
+<b class="nc">&nbsp;                .size(40.dp)</b>
+<b class="nc">&nbsp;                .clip(CircleShape),</b>
+<b class="nc">&nbsp;            contentScale = ContentScale.Fit,</b>
+&nbsp;            loading = {
+&nbsp;                CircularProgressIndicator(
+&nbsp;                    modifier = Modifier
+&nbsp;                        .fillMaxSize(),
+&nbsp;                    color = Color.Green
+&nbsp;                )
+&nbsp;            },
+&nbsp;            error = {
+&nbsp;                // Error content if image loading fails
+&nbsp;                Box(modifier = Modifier.size(40.dp)) {
+&nbsp;                    Text(stringResource(R.string.error)) // todo
+&nbsp;                }
+&nbsp;            }
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;        Spacer(modifier = Modifier.width(16.dp))</b>
+&nbsp;
+<b class="nc">&nbsp;        Column(</b>
+<b class="nc">&nbsp;            modifier = Modifier.weight(1f)</b>
+&nbsp;        ) {
+&nbsp;            // Country Name
+<b class="nc">&nbsp;            Text(</b>
+<b class="nc">&nbsp;                text = country.name,</b>
+<b class="nc">&nbsp;                fontSize = 18.sp,</b>
+<b class="nc">&nbsp;                fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                maxLines = 1,</b>
+<b class="nc">&nbsp;                overflow = TextOverflow.Ellipsis,</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            Spacer(modifier = Modifier.height(4.dp))</b>
+&nbsp;
+&nbsp;            // Currency Name and Symbol
+<b class="nc">&nbsp;            Text(</b>
+<b class="nc">&nbsp;                text = currencyText,</b>
+<b class="nc">&nbsp;                fontSize = 14.sp,</b>
+<b class="nc">&nbsp;                color = Color.Gray,</b>
+<b class="nc">&nbsp;                maxLines = 1,</b>
+<b class="nc">&nbsp;                overflow = TextOverflow.Ellipsis</b>
+&nbsp;            )
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+&nbsp;
+&nbsp;@Preview
+&nbsp;@Composable
+<b class="nc">&nbsp;fun PreviewCountriesItemScreen() {</b>
+<b class="nc">&nbsp;    val sampleCountry = Country(</b>
+<b class="nc">&nbsp;        name = &quot;South Georgia&quot;,</b>
+<b class="nc">&nbsp;        currencies = mapOf(&quot;SHP&quot; to Currency(&quot;Saint Helena pound&quot;, &quot;£&quot;)),</b>
+<b class="nc">&nbsp;        flagUrl = &quot;https://flagcdn.com/w320/gs.png&quot;</b>
+&nbsp;    )
+&nbsp;    // Mock NavController
+<b class="nc">&nbsp;    val mockNavController = rememberNavController()</b>
+&nbsp;
+<b class="nc">&nbsp;    CountryListItem(sampleCountry, navController = mockNavController)</b>
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-27 15:45</div>
+</div>
+</body>
+</html>

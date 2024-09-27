@@ -18,7 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @OptIn(ExperimentalSerializationApi::class)
     val json by lazy {
         Json {
@@ -36,7 +35,6 @@ object AppModule {
     }
 
     private val contentType = "application/json; charset=utf-8".toMediaType()
-
 
     @Provides
     @Singleton
@@ -57,10 +55,4 @@ object AppModule {
             .build()
             .create(ExchangeRateApi::class.java)
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideCoinRepository(api: CountriesApi): CountryRepository {
-//        return Count(api)
-//    }
 }

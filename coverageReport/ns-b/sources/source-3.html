@@ -1,0 +1,222 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ExchangeRateViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.androidtest.presentation.exchange_rate</a>
+</div>
+
+<h1>Coverage Summary for Class: ExchangeRateViewModel (com.example.androidtest.presentation.exchange_rate)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ExchangeRateViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (3/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ExchangeRateViewModel$getExchangeRate$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    64.3%
+  </span>
+  <span class="absValue">
+    (9/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (28/28)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.androidtest.presentation.exchange_rate
+&nbsp;
+&nbsp;import androidx.lifecycle.SavedStateHandle
+&nbsp;import androidx.lifecycle.ViewModel
+&nbsp;import androidx.lifecycle.viewModelScope
+&nbsp;import com.example.androidtest.common.Resource
+&nbsp;import com.example.androidtest.domain.model.Country
+&nbsp;import com.example.androidtest.domain.use_case.get_exchange_rate.GetExchangeRateUseCase
+&nbsp;import dagger.hilt.android.lifecycle.HiltViewModel
+&nbsp;import kotlinx.coroutines.cancel
+&nbsp;import kotlinx.coroutines.flow.MutableStateFlow
+&nbsp;import kotlinx.coroutines.flow.asStateFlow
+&nbsp;import kotlinx.coroutines.flow.launchIn
+&nbsp;import kotlinx.coroutines.flow.onEach
+&nbsp;import kotlinx.serialization.json.Json
+&nbsp;import java.net.URLDecoder
+&nbsp;import java.nio.charset.StandardCharsets
+&nbsp;import javax.inject.Inject
+&nbsp;
+&nbsp;@HiltViewModel
+<b class="fc">&nbsp;class ExchangeRateViewModel @Inject constructor(</b>
+<b class="fc">&nbsp;    private val getExchangeRateUseCase: GetExchangeRateUseCase,</b>
+&nbsp;    savedStateHandle: SavedStateHandle  // Use it to save the state of app
+<b class="fc">&nbsp;) : ViewModel() {</b>
+&nbsp;
+&nbsp;    // State for countries data with Resource
+<b class="fc">&nbsp;    private val _exchangeRate = MutableStateFlow(ExchangeRateState())</b>
+<b class="fc">&nbsp;    val exchangeRate = _exchangeRate.asStateFlow()</b>
+&nbsp;
+<b class="fc">&nbsp;    init {</b>
+&nbsp;    // Fetch the country JSON string from SavedStateHandle, decode it, and use the currency code
+<b class="pc">&nbsp;        savedStateHandle.get&lt;String&gt;(&quot;countryJson&quot;)?.let { countryJson -&gt;</b>
+<b class="fc">&nbsp;            val decodedCountryJson =</b>
+<b class="fc">&nbsp;                URLDecoder.decode(countryJson, StandardCharsets.UTF_8.toString())</b>
+<b class="fc">&nbsp;            val country = Json.decodeFromString&lt;Country&gt;(decodedCountryJson)</b>
+<b class="pc">&nbsp;            country.currencies?.let { currenciesMap -&gt;</b>
+<b class="fc">&nbsp;                val currencyCode = currenciesMap.keys.firstOrNull()</b>
+<b class="pc">&nbsp;                currencyCode?.let { getExchangeRate(it) }</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private fun getExchangeRate(currencyCode: String) {
+<b class="fc">&nbsp;        getExchangeRateUseCase(currencyCode).onEach { result -&gt;</b>
+<b class="fc">&nbsp;            when (result) {</b>
+<b class="fc">&nbsp;                is Resource.Success -&gt; {</b>
+<b class="fc">&nbsp;                    this._exchangeRate.value = ExchangeRateState(exchange = result.data)</b>
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                is Resource.Error -&gt; {</b>
+<b class="fc">&nbsp;                    this._exchangeRate.value =</b>
+<b class="pc">&nbsp;                        ExchangeRateState(error = result.message ?: &quot;An unexpected error occurred&quot;)</b>
+&nbsp;
+&nbsp;                }
+&nbsp;
+<b class="pc">&nbsp;                is Resource.Loading -&gt; {</b>
+<b class="fc">&nbsp;                    this._exchangeRate.value = ExchangeRateState(</b>
+<b class="fc">&nbsp;                        isLoading = true</b>
+&nbsp;                    )
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;        }.launchIn(scope = viewModelScope)</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-27 15:45</div>
+</div>
+</body>
+</html>

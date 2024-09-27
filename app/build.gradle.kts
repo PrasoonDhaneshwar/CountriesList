@@ -31,6 +31,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            enableUnitTestCoverage = true
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -65,6 +68,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.coroutines.core)
@@ -72,7 +76,6 @@ dependencies {
 
     implementation(libs.kotlinx.serialization)
 
-    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Dependency Injection - Hilt
     implementation(libs.hilt.android)
@@ -85,12 +88,16 @@ dependencies {
     // Image Loading - Coil
     implementation(libs.coil.compose)
 
-    // retrofit
+    // Retrofit
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.kotlinx.serialization)
     implementation(libs.okhttp3.logging.interceptor)
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.androidx.core.testing) // For InstantTaskExecutorRule
+    testImplementation(libs.kotlinx.coroutines.test)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

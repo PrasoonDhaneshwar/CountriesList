@@ -19,18 +19,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.SubcomposeAsyncImage
@@ -49,15 +46,14 @@ import java.nio.charset.StandardCharsets
 fun ExchangeRateScreen(
     state: ExchangeRateState,
     navController: NavController,
-    encodedCountry: String,
-    //viewModel: ExchangeRateViewModel = hiltViewModel()
+    encodedCountryString: String,
 ) {
     val TAG = "ExchangeRateScreen"
 
-    Log.d(TAG, "encodedCountry received: $encodedCountry")
-    val decodedCountryJson = URLDecoder.decode(encodedCountry, StandardCharsets.UTF_8.toString())
-    val country = Json.decodeFromString<Country>(decodedCountryJson)
-    //val state by viewModel.exchangeRate.collectAsStateWithLifecycle()
+    Log.d(TAG, "encodedCountry received: $encodedCountryString")
+    val decodedCountryJsonString =
+        URLDecoder.decode(encodedCountryString, StandardCharsets.UTF_8.toString())
+    val country = Json.decodeFromString<Country>(decodedCountryJsonString)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -105,7 +101,14 @@ fun ExchangeRateScreen(
                 country.currencies?.values?.firstOrNull() // Get the first currency available
             if (currencyInfo != null) {
                 Text(
-                    text = stringResource(R.string.currency, currencyInfo.name, currencyInfo.symbol),
+                    text = buildString {
+                        append(stringResource(R.string.currency))
+                        append(" ")
+                        append(currencyInfo.name)
+                        append(" (")
+                        append(currencyInfo.symbol)
+                        append(")")
+                    },
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -118,9 +121,13 @@ fun ExchangeRateScreen(
             }
             // Currency Name and Symbol
             if (state.isLoading) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(modifier = Modifier.testTag("loadingIndicator"))
             } else if (state.error.isNotEmpty()) {
-                Text(text = state.error, color = MaterialTheme.colorScheme.error)
+                Text(
+                    text = state.error,
+                    color = MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center
+                )
             } else {
                 Log.d(TAG, "state.exchange: ${state.exchange}")
 
@@ -129,7 +136,11 @@ fun ExchangeRateScreen(
                     // Display Exchange Rate to USD
                     Text(
                         text = if (usdRate != null) {
-                            stringResource(R.string.usd_exchange_rate, usdRate)
+                            buildString {
+                                append(stringResource(R.string.usd_exchange_rate))
+                                append(" ")
+                                append(usdRate)
+                            }
                         } else {
                             stringResource(
                                 R.string.usd_exchange_rate_not_available,
@@ -187,6 +198,6 @@ fun ExchangeRateScreenPreview() {
     ExchangeRateScreen(
         mockState,
         navController = mockNavController,
-        encodedCountry = encodedCountryJson,
+        encodedCountryString = encodedCountryJson,
     )
 }

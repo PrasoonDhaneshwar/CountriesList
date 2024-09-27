@@ -78,7 +78,7 @@ fun CountryListItem(country: Country, navController: NavController) {
             error = {
                 // Error content if image loading fails
                 Box(modifier = Modifier.size(40.dp)) {
-                    Text(stringResource(R.string.error)) // todo
+                    Text(stringResource(R.string.error))
                 }
             }
         )

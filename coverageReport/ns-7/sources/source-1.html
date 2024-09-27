@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > GetCountriesUseCase</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.androidtest.domain.use_case.get_countries</a>
+</div>
+
+<h1>Coverage Summary for Class: GetCountriesUseCase (com.example.androidtest.domain.use_case.get_countries)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GetCountriesUseCase</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GetCountriesUseCase$invoke$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (6/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (6/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/15)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.androidtest.domain.use_case.get_countries
+&nbsp;
+&nbsp;import com.example.androidtest.common.Resource
+&nbsp;import com.example.androidtest.domain.model.Country
+&nbsp;import com.example.androidtest.domain.model.toCountryUI
+&nbsp;import com.example.androidtest.domain.repository.CountryRepository
+&nbsp;import kotlinx.coroutines.flow.Flow
+&nbsp;import kotlinx.coroutines.flow.flow
+&nbsp;import okio.IOException
+&nbsp;import retrofit2.HttpException
+&nbsp;import javax.inject.Inject
+&nbsp;
+<b class="fc">&nbsp;open class GetCountriesUseCase @Inject constructor(</b>
+<b class="fc">&nbsp;    private val repository: CountryRepository</b>
+&nbsp;) {
+<b class="fc">&nbsp;    private val TAG = &quot;GetCountriesUseCase&quot;</b>
+<b class="fc">&nbsp;    open operator fun invoke(): Flow&lt;Resource&lt;List&lt;Country&gt;&gt;&gt; = flow {</b>
+<b class="fc">&nbsp;        try {</b>
+<b class="pc">&nbsp;            emit(Resource.Loading&lt;List&lt;Country&gt;&gt;())</b>
+<b class="pc">&nbsp;            val countries = repository.getCountries().map { it.toCountryUI() }</b>
+&nbsp;            // Log.d(TAG, &quot;Countries received: $countries&quot;)
+&nbsp;            //val countriesWithoutCurrencies = findCountriesWithoutCurrencies(countries)
+&nbsp;            // todo to check which countries don&#39;t have currencies
+&nbsp;//            countriesWithoutCurrencies.forEach {
+&nbsp;//                Log.d(TAG, &quot;countriesWithoutCurrencies: $it&quot;)
+&nbsp;//            }
+<b class="pc">&nbsp;            emit(Resource.Success&lt;List&lt;Country&gt;&gt;(countries))</b>
+<b class="fc">&nbsp;        } catch (e: HttpException) {</b>
+<b class="pc">&nbsp;            emit(Resource.Error&lt;List&lt;Country&gt;&gt;(e.localizedMessage ?: &quot;An unexpected error occurred&quot;))</b>
+<b class="fc">&nbsp;        } catch (e: IOException) {</b>
+<b class="pc">&nbsp;            emit(Resource.Error&lt;List&lt;Country&gt;&gt;(&quot;Couldn&#39;t reach server. Check your internet connection.&quot;))</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;//    fun findCountriesWithoutCurrencies(countries: List&lt;Country&gt;): List&lt;String&gt; {
+&nbsp;//        return countries.filter { it.currencies.isNullOrEmpty() }
+&nbsp;//            .map { it.name }
+&nbsp;//    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-27 15:45</div>
+</div>
+</body>
+</html>

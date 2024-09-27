@@ -1,7 +1,6 @@
 package com.example.androidtest.domain.model
 
 import com.example.androidtest.countries.model.CountriesResponse
-import com.example.androidtest.countries.model.CountryName
 import com.example.androidtest.countries.model.Currency
 import kotlinx.serialization.Serializable
 

@@ -1,15 +1,19 @@
 [versions]
 agp = "8.5.0-alpha06"
+coreTesting = "2.2.0"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
+kotlinxCoroutinesTest = "1.8.0"
 lifecycleRuntimeCompose = "2.8.6"
 lifecycleViewmodelCompose = "2.8.4"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.8.0"
 composeBom = "2024.04.01"
+mockk = "1.12.0"
+mockwebserver = "4.9.3"
 retrofit2 = "2.11.0"
 kotlinx_serialization = "1.6.3"
 coroutines = "1.8.0"
@@ -20,9 +24,11 @@ coilCompose = "2.6.0"
 navigationCompose = "2.7.7"
 hiltAndroidCompiler = "2.50"
 hiltNavigationCompose = "1.2.0"
+navigationTesting = "2.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -40,6 +46,9 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidCompiler" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
 retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
 retrofit2_converter_kotlinx_serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit2" }
 okhttp3_logging_interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp" }

@@ -10,10 +10,10 @@ import okio.IOException
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class GetExchangeRateUseCase @Inject constructor(
+open class GetExchangeRateUseCase @Inject constructor(
     private val repository: ExchangeRateRepository
 ) {
-    operator fun invoke(currency: String): Flow<Resource<ExchangeRate>> = flow {
+    open operator fun invoke(currency: String): Flow<Resource<ExchangeRate>> = flow {
         try {
             emit(Resource.Loading<ExchangeRate>())
             val exchangeRateUI = repository.getCountryExchangeRate(currency).toExchangeRateUI()

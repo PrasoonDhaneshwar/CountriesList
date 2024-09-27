@@ -19,8 +19,6 @@ class CountriesResponse(
 class Flags(
     @SerialName("png")
     val png: String,
-    @SerialName("svg")
-    val svg: String
 )
 
 @Serializable
