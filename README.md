@@ -1,17 +1,11 @@
-# Android Programming Test - Solution
-
-## Countries List ##
+# Countries List #
 An Android app which fetches a list of countries and shows it's USD exchange rate.
 
 <p align="center">
-<img src="screenshots/countrieslist.gif"width=" 266" height="569"/>
+<img src="screenshots/countrieslist.gif"width=" 300"/>
 </p>
 
 ---
-
-## Instructions to run the project
-- Make sure to download all the dependencies included in the project.
-Since, I've used Android Studio Canary 6 to build the project, it is required to have **Android Gradle Plugin version 8.0.0** or above.
 
 ## **Download** ##
 - Click [here](https://github.com/PrasoonDhaneshwar/CountriesList/releases/download/1.0.0/countries-list-1.0.0-debug.apk) to download the **CountriesList** application.
@@ -19,26 +13,32 @@ Since, I've used Android Studio Canary 6 to build the project, it is required to
 ---
 
 ## 📸 Screenshots ##
-<div class="column">
-  <img src="screenshots\countrylistnocurrencydark.png" width="266" height="569" />
-  <img src="screenshots\countrylistnocurrencylight.png" width="266" height="569" />
-  <img src="screenshots\countrylistnocurrencylight-de.png" width="266" height="569" />
-  <img src="screenshots\countrylistnocurrencydark-de.png" width="266" height="569" />
-  <img src="screenshots\countrydetailslight.png" width="266" height="569" />
-  <img src="screenshots\countrydetailsdark-de.png" width="266" height="569" />
-  <img src="screenshots\countrydetailsnocurrencylight.png" width="266" height="569" />
-  <img src="screenshots\countrydetailsnocurrencydark-de.png" width="266" height="569" />
-</div>
+<p float="left">
+  <img src="screenshots\countrylistnocurrencydark.png" width="300" />
+  <img src="screenshots\countrylistnocurrencylight.png" width="300" />
+  <img src="screenshots\countrylistnocurrencylight-de.png" width="300" />
+  <img src="screenshots\countrylistnocurrencydark-de.png" width="300" />
+  <img src="screenshots\countrydetailslight.png" width="300" />
+  <img src="screenshots\countrydetailsdark-de.png" width="300" />
+  <img src="screenshots\countrydetailsnocurrencylight.png" width="300" />
+  <img src="screenshots\countrydetailsnocurrencydark-de.png" width="300" />
+</p>
+
+---
+## 🔑 APIs ##
+
+*List of countries:*
+<https://restcountries.com/v3.1/>
+
+*Exchange rate:*
+<https://www.exchangerate-api.com/>
 
 ---
 
-## Notes and Implementation Details
-- **Architecture pattern decision.** I chose MVVM architecture with use cases and used a multi-module approach for better scalability, testability, and separation of concerns. 
-- I used typical libraries such as Coil for image loading, Hilt for DI, Jetpack Navigation for navigating and passing data between screens
-- Testing strategy and coverage details. Both UI and unit tests have been covered with 100% coverage for unit tests. Check folder "coverageReport" for more details.
+## 🛠️ Libraries and Dependencies ##
 
----
-
-## Trade-offs ##
-- Since, it's a limited list of countries, it can further be improved by using a database to cache the data.
-- Used two separate viewmodels for currency and exchange. A Shared ViewModel could also be used by maintaining and passing an ID of the "Country" instead of a big Json "Country" string, which I've used in the project. Since it's a limited and fixed list of countries, I chose this approach.
+- *[Retrofit](https://square.github.io/retrofit/)* - A type-safe HTTP client for Android & *[OkHttp](https://square.github.io/okhttp/)* to interpret responses and recover from common connection problems.
+- *[Coil](https://coil-kt.github.io/coil/).* An image loading library for Android and Compose Multiplatform.
+- *[Hilt](https://dagger.dev/hilt/)* - Provides a standard way to incorporate Dagger dependency injection into an Android application.
+- *[mockk](https://mockk.io/)* - mocking library for Kotlin to cover unit tests.
+- *[Material Components for Android](https://github.com/material-components/material-components-android)* - Modular and customizable Material Design UI components for Android.

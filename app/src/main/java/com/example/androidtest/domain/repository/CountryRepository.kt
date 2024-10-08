@@ -1,11 +1,10 @@
 package com.example.androidtest.domain.repository
 
-import com.example.androidtest.countries.CountriesApi
 import com.example.androidtest.countries.model.CountriesResponse
-import javax.inject.Inject
+import com.example.androidtest.domain.model.Country
 
-class CountryRepository @Inject constructor(private val countriesApi: CountriesApi){
-    suspend fun getCountries(): List<CountriesResponse> {
-        return countriesApi.fetchCountriesFullList()
-    }
+interface CountryRepository {
+    suspend fun getCountries(): List<CountriesResponse>
+
+    suspend fun getCountry(countryName: String): Country?
 }

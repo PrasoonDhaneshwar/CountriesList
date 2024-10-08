@@ -3,6 +3,10 @@ package com.example.androidtest.di
 import com.example.androidtest.common.Constants.BASE_URL
 import com.example.androidtest.common.Constants.EXCHANGE_RATE_URL
 import com.example.androidtest.countries.CountriesApi
+import com.example.androidtest.data.repository.CountryRepositoryImpl
+import com.example.androidtest.data.repository.ExchangeRateRepositoryImpl
+import com.example.androidtest.domain.repository.CountryRepository
+import com.example.androidtest.domain.repository.ExchangeRateRepository
 import com.prasoon.exchangerate.ExchangeRateApi
 import dagger.Module
 import dagger.Provides
@@ -48,11 +52,23 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideCountryRepository(api: CountriesApi): CountryRepository {
+        return CountryRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
     fun provideExchangeRateApi(): ExchangeRateApi {
         return Retrofit.Builder()
             .baseUrl(EXCHANGE_RATE_URL)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
             .create(ExchangeRateApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideExchangeRateRepository(countryExchangeApi: ExchangeRateApi): ExchangeRateRepository {
+        return ExchangeRateRepositoryImpl(countryExchangeApi)
     }
 }
